@@ -96,7 +96,6 @@
             spotifyService.getAlbumsofArtist(vm.selectedArtist.id, vm.loadedAlbumsCount, vm.itemsToLoadCount)
             .then(
                 function success(data) {
-                    debugger
                     return spotifyService.getAlbumsDetail(_.map(data.data.items, function (item) { return item.id; }))
                 },
                 function error(message) { vm.loadingAlbums = false; })
