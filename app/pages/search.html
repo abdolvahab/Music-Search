@@ -1,0 +1,78 @@
+﻿<section class="vbox" ng-controller="SearchController as vm">
+    <header class="bg-white-only header header-md navbar navbar-fixed-top-xs">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="container-fluid input-group">
+                    <input class="form-control" placeholder="Search for..." type="text" ng-model="vm.searchQuery"
+                           uib-typeahead="item.name for item in vm.getForTypeahead($viewValue)" typeahead-template-url="typeaheadTemplate.html"
+                           typeahead-wait-ms="300" typeahead-loading="loadingLocations" typeahead-no-results="noResults" typeahead-on-select="vm.search()"
+                           enter-pressed="vm.search()">
+                    <i ng-show="loadingLocations" class="fa fa-refresh fa-spin"></i>
+                    <div ng-show="noResults">
+                        <i class="fa fa-times"></i> No Results Found
+                    </div>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default uppercase bold" type="button" ng-click="vm.search()">Search</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header> <section>
+        <section class="hbox stretch">
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable padder-lg w-f-md">
+                                <h2 class="font-thin m-b" ng-show="vm.albums.length>0">Albums</h2>
+                                <div class="row row-sm">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="album in vm.albums" ng-animate="'slide-down'">
+                                        <div class="item">
+                                            <div class="pos-rlt image-container">
+                                                <span class="image-link" preload-bg-image='{{album.image}}'></span>
+                                            </div>
+                                            <div class="padder-v">
+                                                <a class="text-ellipsis">{{album.name}}</a> <a ng-href="#!/artist/{{album.artistId}}" class="text-ellipsis text-xs text-muted">{{album.artist}}</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button ng-click="vm.getAlbums()" class="btn btn-default center-block" ng-if="vm.albums.length>0 && vm.loadedAlbumsCount < vm.totalAlbums">Load More</button>
+                                </div>
+                                <div class="row row-sm" ng-if="vm.loadingAlbums"><div class="col-md-12 text-center" style="padding:15px"><i class="fa fa-spinner fa-spin fa-3x"></i></div></div>
+
+                                <h2 class="font-thin m-b" ng-show="vm.artists.length>0">Artists</h2>
+                                <div class="row row-sm">
+                                    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="artist in vm.artists" ng-animate="'slide-down'">
+                                        <div class="item">
+                                            <div class="pos-rlt image-container">
+                                                <a ng-href="#!/artist/{{artist.id}}" class="image-link" preload-bg-image='{{artist.image}}'></a>
+                                            </div>
+                                            <div class="padder-v">
+                                                <a ng-href="#!/artist/{{artist.id}}" class="text-ellipsis">{{artist.name}}</a>
+                                                <ng-rating ng-model="artist.popularity" based-on="100" show-grade="true" start-count="5"></ng-rating>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button ng-click="vm.getArtists()" class="btn btn-default center-block" ng-if="vm.artists.length>0 && vm.loadedArtistsCount < vm.totalArtists">Load More</button>
+                                </div>
+                                <div class="row row-sm" ng-if="vm.loadingArtists && !vm.loadingAlbums"><div class="col-md-12 text-center" style="padding:15px"><i class="fa fa-spinner fa-spin fa-3x"></i></div></div>
+
+
+
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+    </section>
+</section>
+
+
+<script type="text/ng-template" id="typeaheadTemplate.html">
+    <a tabindex="-1">
+        <img ng-src="{{match.model.image}}" width="16">
+        <span ng-bind-html="match.model.name | uibTypeaheadHighlight:query"></span>
+        <span style="color:gray;margin-right:8px">({{match.model.type}})</span>
+    </a>
+</script>

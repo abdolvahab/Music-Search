@@ -1,0 +1,446 @@
+﻿@import 'gradients','mixins';
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Raleway', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.header {
+    width: 100%;
+    height: 85vh;
+    @include gradient-vertical(#ce4283,#b2455d);
+
+    .logos {
+        width: 100%;
+        height: 13vh;
+
+        .gl-logo {
+            float: left;
+            height: 100%;
+            margin: 40px 30px;
+        }
+
+        .powered {
+            float: right;
+            color: white;
+            padding: 40px 30px;
+        }
+    }
+
+    .big-logo {
+        width: 100%;
+        height: 60vh;
+        background: url('../images/hero-img@2x.png') no-repeat top center;
+        background-size: contain;
+    }
+
+    .arrow {
+        width: 100%;
+        height: 7vh;
+        text-align: center;
+        color: white;
+        font-size: 5vh;
+    }
+}
+
+*:focus {
+    outline: none;
+}
+
+.search {
+    width: 100%;
+    min-height: 15vh;
+    background-color: #333441;
+    padding: 20px 0;
+
+    .search-box {
+        width: 40%;
+        background: #fff;
+        height: 50px;
+        border-radius: 50px;
+        margin: 0 auto;
+        padding: 0 0 0 25px;
+
+        * {
+            font-size: 18px;
+        }
+
+        input {
+            border: 0;
+            width: 70%;
+            color: #878787;
+            height: 50px;
+            padding: 10px 0;
+        }
+
+        .search-button {
+            width: 22%;
+            color: #fff;
+            background-color: #d05d84;
+            height: 42px;
+            border-radius: 42px;
+            margin: 4px 4px 0 0;
+            border: 0;
+            text-transform: uppercase;
+            float: right;
+        }
+    }
+}
+
+.results {
+    background-color: #383a49;
+    padding-bottom: 40px;
+
+
+    .item-container {
+        width: 100%;
+        padding: 40px 5vw 20px 5vw;
+        display: inline-block;
+
+        .item {
+            float: left;
+            width: 20%;
+            margin: 20px;
+            position: relative;
+
+            .image-container {
+                background: #fff;
+                border-radius: 4px 4px 0 0;
+                position: relative;
+
+                .icon {
+                    position: absolute;
+                    left: 10px;
+                    bottom: 10px;
+                    width: 39px;
+                    height: 39px;
+
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .image-link {
+                opacity: 0;
+                width: 100%;
+                padding-bottom: 100%;
+                display: block;
+                background-size: cover;
+                @include transition(opacity 1s ease-in-out);
+                border-radius: 4px 4px 0 0;
+            }
+
+            .overlay, .overlay-text {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 100%;
+                width: 100%;
+                opacity: 0;
+                @include transition(.5s ease);
+                cursor: pointer;
+            }
+
+            .overlay {
+                filter: url('#blur');
+                filter: blur(10px);
+                background-size: cover;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .overlay-text {
+                box-shadow: inset 0 0 12px rgba(0,0,0,0.8);
+            }
+
+            &:hover .overlay, &:hover .overlay-text {
+                opacity: 1;
+            }
+
+            &:hover .overlay-text .text {
+                opacity: 1;
+            }
+
+            .text {
+                color: white;
+                font-size: 20px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                opacity: 0;
+                @include transition(.5s ease);
+                text-align: center;
+
+                img {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+            }
+
+            .title {
+                background-color: #fff;
+                width: 100%;
+                height: 60px;
+                border-radius: 0 0 4px 4px;
+                font: 600 16px Raleway;
+                padding: 20px;
+            }
+        }
+    }
+
+    .load-more {
+        background-color: #d05d84;
+        color: #fff;
+        padding: 0 10px;
+        height: 35px;
+        border-radius: 35px;
+        margin: 0 auto;
+        border: 0;
+        text-transform: uppercase;
+        display: block;
+    }
+
+    .spinner-holder {
+        color: #fff;
+        font-size: 36px;
+        margin: 0 auto;
+        border: 0;
+        display: block;
+        text-align: center;
+    }
+}
+
+.footer {
+    width: 100%;
+    height: 10vh;
+    background-color: #333441;
+    color: #fff;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 10vh;
+}
+
+.text-ellipsis {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.artist-image {
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    border-radius: 5px 5px 0 0;
+
+    .name {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        font-weight: 600;
+        font-size: 28px;
+        color: white;
+        text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+    }
+}
+
+.albums {
+    padding: 20px;
+    font-weight: 600;
+    font-size: 18px;
+
+    hr {
+        border: solid 1px #eee;
+        margin: 20px 0;
+    }
+
+    .album-item {
+        margin: 7px 0;
+        width: 100%;
+        display: inline-block;
+
+        .image {
+            height: 100px;
+            margin-right: 40px;
+            vertical-align: middle;
+            float: left;
+        }
+
+        .album-name {
+            font-size: 22px;
+            float: left;
+            margin-top: 10px;
+        }
+
+        .year {
+            display: inline-block;
+            color: #eee;
+            width: 100%;
+            font-size: 18px;
+            font-weight: normal;
+            margin-top: 10px;
+        }
+    }
+}
+/* MODAL STYLES
+-------------------------------*/
+modal {
+    /* modals are hidden by default */
+    display: none;
+
+    .modal {
+        /* modal container fixed across whole screen */
+        position: fixed;
+        top: 0;
+        width: 60%;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        transform: translateX(-50%);
+        /* z-index must be higher than .modal-background */
+        z-index: 1000;
+        /* enables scrolling for tall modals */
+        overflow: auto;
+
+        .modal-body {
+            background: #fff;
+            border-radius: 5px;
+            /* margin exposes part of the modal background */
+            margin: 40px;
+            position: relative;
+
+            .close {
+                border: 0;
+                color: #fff;
+                text-shadow: 2px 2px 5px rgba(0,0,0,.8);
+                font-size: 60px;
+                top: 15px;
+                right: 30px;
+                position: absolute;
+                z-index: 10;
+                background-color: transparent;
+                cursor:pointer;
+            }
+        }
+    }
+
+    .modal-background {
+        /* modal background fixed across whole screen */
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        /* semi-transparent black  */
+        background-color: #000;
+        opacity: 0.6;
+        /* z-index must be below .modal and above everything else  */
+        z-index: 900;
+    }
+}
+
+body.modal-open {
+    /* body overflow is hidden to hide main scrollbar when modal window is open */
+    overflow: hidden;
+}
+
+
+/* Hack for ionicicons v2 (no animation code) */
+.spin::before {
+    line-height: 100px;
+    -webkit-animation: spin 1.5s infinite linear;
+    -moz-animation: spin 1.5s infinite linear;
+    -ms-animation: spin 1.5s infinite linear;
+    -o-animation: spin 1.5s infinite linear;
+    animation: spin 1.5s infinite linear;
+}
+
+@keyframes
+
+"spin" {
+    from {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(359deg);
+        -moz-transform: rotate(359deg);
+        -o-transform: rotate(359deg);
+        -ms-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@-moz-keyframes spin {
+    from {
+        -moz-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -moz-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@-webkit-keyframes
+
+"spin" {
+    from {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@-ms-keyframes
+
+"spin" {
+    from {
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -ms-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+@-o-keyframes
+
+"spin" {
+    from {
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -o-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "music-search",
+  "version": "1.0.0",
+  "private": true,
+    "dependencies": {
+        "angular": "*",
+        "angular-mocks": "*",
+        "angular-animate": "*",
+        "angular-toastr": "*",
+        "ionicons": "*"
+    },
+  "resolutions": {
+    "angular": "1.6.4"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "e2e-tests"
+  ]
+}

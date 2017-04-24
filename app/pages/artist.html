@@ -1,0 +1,17 @@
+﻿<div class="artist-image" ng-style="vm.getBackgroundStyle(vm.selectedArtist.image)">
+    <div class="name">{{vm.selectedArtist.name}}</div>
+</div>
+<div class="albums">
+    Albums
+    <hr />
+    
+        <div class="album-item" ng-repeat="album in vm.artistAlbums" ng-animate="'slide-down'">
+                <img class="image" ng-src="{{album.image}}"/>
+                <div class="album-name">
+                    {{album.name}}
+                    <span class="year">{{album.year}}</span>
+                </div>
+            </div>
+        <button ng-click="vm.getAlbums()" class="btn btn-default center-block" ng-if="vm.artistAlbums.length>0 && vm.loadedAlbumsCount < vm.totalAlbums">Load More</button>
+    <div class="row row-sm" ng-if="vm.loadingAlbums"><div class="col-md-12 text-center"><i class="fa fa-spinner fa-spin fa-3x"></i></div></div>
+</div>

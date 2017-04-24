@@ -1,0 +1,92 @@
+﻿<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Music Search</title>
+    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,600" rel="stylesheet"> 
+    <link rel="stylesheet" href="assets/css/app.min.css" type="text/css">
+
+    <script src="assets/vendor/vendor-bundle.min.js"></script>
+    <script src="app.js"></script>
+    <script src="services/config.constant.js"></script>
+    <script src="services/spotify.service.js"></script>
+    <script src="services/modal.service.js"></script>
+    <script src="directives/enterPressed.directive.js"></script>
+    <script src="directives/preload-image.directive.js"></script>
+    <script src="directives/modal.directive.js"></script>
+    <script src="controllers/search.controller.js"></script>
+
+</head>
+<body class="" ng-app="app" ng-controller="SearchController as vm">
+    <div class="header">
+        <div class="logos">
+            <img src="assets/images/gl-logo@2x.png" class="gl-logo" />
+            <span class="powered">Powered by Spotify</span>
+        </div>
+        <div class="big-logo"></div>
+        <div class="arrow"><i class="ion ion-ios-arrow-thin-down" aria-hidden="true"></i>
+</div>
+    </div>
+    <div class="search">
+        <div class="search-box">
+            <input type="text" ng-model="vm.searchQuery" enter-pressed="vm.search()" />
+            <button ng-click="vm.search()" class="search-button">Search</button>
+        </div>
+    </div>
+        <div class="results">
+            <div class="item-container">
+                <a class="item" ng-repeat="item in vm.items" ng-animate="'slide-down'" ng-click="vm.openModal('artist-modal',item.id,item.type)">
+                    <div class="image-container">
+                        <span class="image-link" preload-bg-image='{{item.image}}'></span>
+                        <div class="overlay" ng-style="{'background-image':'url({{item.image}})'}"></div>
+                        <div class="overlay-text">
+                            <div class="text">
+                                <img src="assets/images/Bitmap@2x.png" />
+                                {{(item.type == 'artist'?'View Albums':'View Tracks')}}
+                            </div>
+                        </div>
+                       
+                        <div class="icon">
+                            <img ng-src="{{item.type == 'artist'?'assets/images/artist-icon@2x.png':'assets/images/album-icon@2x.png'}}"/>
+                        </div>
+                    </div>
+                    <div class="title text-ellipsis">
+                        {{item.name}}
+                    </div>
+                </a>
+            </div>
+            <button ng-click="vm.getItems()" class="load-more" ng-if="vm.items.length>0 && vm.loadedItemsCount < vm.totalItems">Show Me More!</button>
+            <div class="spinner-holder" ng-if="vm.loadingItems"><i class="ion-ios-loop-strong spin"></i></div>
+        </div>
+       <div class="footer">Designed by Geek Label - Powered by Spotify</div>
+
+
+    <modal id="artist-modal">
+        <div class="modal">
+            <div class="modal-body">
+                <button class="close" ng-click="vm.closeModal('artist-modal');"><i class="ion-ios-close-empty"></i></button>
+                <ng-include src="'pages/artist.html'"/>
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal>
+    <!--<modal id="album-modal">
+        <div class="modal">
+            <div class="modal-body">
+                <ng-include src="'pages/album.html'" />
+                <button ng-click="vm.closeModal('album-modal');">Close</button>
+            </div>
+        </div>
+        <div class="modal-background"></div>
+    </modal>-->
+
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="display:none">
+        <defs>
+            <filter id="blur">
+                <feGaussianBlur stdDeviation="10" />
+            </filter>
+        </defs>
+    </svg>
+</body>
+</html>
