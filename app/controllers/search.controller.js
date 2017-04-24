@@ -42,7 +42,7 @@
 
         // Get albums and artists for specified search query
         function getItems() {
-            vm.loadingAlbums = true;
+            vm.loadingItems = true;
             spotifyService.getAlbumAndArtists(vm.searchQuery, vm.loadedItemsCount, vm.itemsToLoadCount).then(
                 function success(data) {
                     vm.loadedItemsCount += data.data.albums.items.length;

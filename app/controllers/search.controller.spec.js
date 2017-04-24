@@ -43,17 +43,7 @@
         expect($controller).toBeDefined();
     });
 
-    describe('page init', function() {
-        it('should call services if sessioStorage has data', function() {
-            sessionStorage.setItem("searchQuery", 'test');
-            var controller = $controller('SearchController', { spotifyService: mockDataSvc });
-
-            expect(mockDataSvc.getArtists).toHaveBeenCalled();
-            expect(mockDataSvc.getAlbums).toHaveBeenCalled();
-        });
-    });
-
-    describe('search', function() {
+        describe('search', function() {
         var controller;
         beforeEach(function() {
             controller = $controller('SearchController', { spotifyService: mockDataSvc });
@@ -67,20 +57,22 @@
             controller.search();
 
             expect(controller.albums.length).toBe(0);
-            expect(controller.loadedAlbumsCount).toBe(0);
-            expect(controller.totalAlbums).toBe(controller.itemsToLoadCount);
+            expect(controller.loadedItemsCount).toBe(0);
+            expect(controller.totalItems).toBe(controller.itemsToLoadCount);
         });
-        it('should call services', function() {
+
+        it('should call services', function () {
+            controller.loadedItemsCount = 10;
+            controller.itemsToLoadCount = 20;
+            controller.searchQuery = 'test';
+            controller.albums = [];
             controller.search();
 
             rootScope.$digest();
 
-            expect(mockDataSvc.getArtists).toHaveBeenCalled();
-            expect(mockDataSvc.getAlbums).toHaveBeenCalled();
+            expect(mockDataSvc.getAlbumAndArtists).toHaveBeenCalled('test', 10, 20);
         });
-        it('should set sessionStorage', function() {
-            expect(sessionStorage.getItem("searchQuery")).toBe(controller.searchQuery);
-        });
+        
     });
     describe('getAlbums', function () {
         it('call getAlbums from spotifyService', function () {
