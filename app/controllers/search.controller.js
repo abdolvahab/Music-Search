@@ -56,7 +56,7 @@
                         function (item) {
                             return { "name": item.name, "image": item.images.length > 1 ? _.sortBy(item.images, function (item) { return item.width; }).reverse()[0].url : '', "id": item.id, type: "artist" }
                         }));
-                    vm.totalItemss = data.data.albums.total;
+                    vm.totalItems = data.data.albums.total+data.data.artists.total;
                     vm.loadingItems = false;
                 }, function error(message) { vm.loadingItems = false; toastr.error(config.generalErrorMessage) });
         }
